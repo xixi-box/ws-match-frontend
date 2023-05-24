@@ -9,7 +9,6 @@ const user = {
   gender: '男',
   phone: '123456',
   email: '260@163.com',
-  planetCode: 1,
   tags: ['java', 'python'],
   createTime: new Date,
 }
@@ -41,7 +40,6 @@ const toEdit = (editkey: string, editName: string, currentValue: string) => {
             @click="toEdit('phone','电话',user.phone)"/>
   <van-cell title="邮箱" :value="user.email" is-link to="/user/edit" arrow-direction="down"
             @click="toEdit('email','邮箱',user.email)"/>
-  <van-cell title="编号" :value="user.planetCode" arrow-direction="down" value="内容"/>
   <van-cell title="注册时间" :value="user.createTime.toISOString()" arrow-direction="down" value="内容"/>
 
 

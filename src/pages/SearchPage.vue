@@ -7,7 +7,10 @@
         @search="onSearch"
         @cancel="onCancel"
     />
+
   </form>
+
+
   <van-divider content-position="left">已选标签</van-divider>
   <div v-if="activeIds.length==0">请选择标签</div>
   <van-row :gutter="16" style="padding:0 16px ">
@@ -18,6 +21,7 @@
     </van-col>
   </van-row>
 
+
   <van-divider content-position="left">选择标签</van-divider>
   <van-tree-select
       v-model:active-id="activeIds"
@@ -25,10 +29,17 @@
       :items="tagList"
   />
 
+  <van-button type="primary" @click="doSearchResult">
+    搜索
+  </van-button>
+
+
 </template>
 <script setup lang="ts">
 import {ref} from 'vue';
+import {useRouter} from "vue-router";
 
+const router = useRouter()
 const originalList = [
   {
     text: '性别',
@@ -69,6 +80,17 @@ const doClose = (tag) => {
   })
 }
 
+/**
+ *搜索结果
+ */
+const doSearchResult = () => {
+  router.push({
+    path: 'user/list',
+    query: {
+      tags: activeIds.value
+    }
+  })
+}
 </script>
 
 
