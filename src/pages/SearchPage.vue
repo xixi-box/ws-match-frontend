@@ -28,10 +28,11 @@
       v-model:main-active-index="activeIndex"
       :items="tagList"
   />
-
-  <van-button type="primary" @click="doSearchResult">
-    搜索
-  </van-button>
+  <div style="padding: 20px">
+    <van-button block type="primary" @click="doSearchResult" >
+      搜索
+    </van-button>
+  </div>
 
 
 </template>
