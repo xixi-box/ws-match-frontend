@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import {useRouter} from "vue-router";
-import {onMounted} from "vue";
-import qs from "qs";
-import myAxios from "../plugins/myAxios.ts";
 
 const user = {
   id: 1,

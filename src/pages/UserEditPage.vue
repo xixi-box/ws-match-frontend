@@ -1,17 +1,31 @@
 <script setup lang="ts">
 
 
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {ref} from "vue";
+import axios from "axios";
+import myAxios from "../plugins/myAxios.ts";
 
 const route = useRoute();
+const router = useRouter()
 const editUser = ref({
   editKey: route.query.editKey,
   currentValue: route.query.currentValue,
   editName: route.query.editName,
 })
-const onSubmit = (values) => {
+const onSubmit = () => {
   //提交到后台
+  const res = myAxios.post('user/update', {
+    'id': 3,
+    [editUser.value.editKey]:
+    editUser.value.currentValue,
+
+  })
+  if (res.code === 0 && res.data > 0) {
+    router.back()
+  } else {
+    alert('修改错误')
+  }
 
 };
 </script>
