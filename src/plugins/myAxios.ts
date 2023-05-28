@@ -2,8 +2,12 @@
 import axios from "axios";
 
 const myAxios = axios.create({
-    baseURL: 'http://localhost:8080/api'
+    baseURL: 'http://localhost:8080/api',
+    // withCredentials: true
 });
+
+
+myAxios.defaults.withCredentials = true //默认携带cookie
 
 // Add a request interceptor
 myAxios.interceptors.request.use(function (config) {
@@ -19,7 +23,7 @@ myAxios.interceptors.request.use(function (config) {
 myAxios.interceptors.response.use(function (response) {
     console.log('收到响应了')
     // Do something with response data
-    return response;
+    return response.data; //统一的取出data 第一层data 只关注业务的响应
 }, function (error) {
     // Do something with response error
     return Promise.reject(error);

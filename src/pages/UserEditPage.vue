@@ -3,7 +3,6 @@
 
 import {useRoute, useRouter} from "vue-router";
 import {ref} from "vue";
-import axios from "axios";
 import myAxios from "../plugins/myAxios.ts";
 
 const route = useRoute();
@@ -13,11 +12,11 @@ const editUser = ref({
   currentValue: route.query.currentValue,
   editName: route.query.editName,
 })
-const onSubmit = () => {
+const onSubmit = async () => {
   //提交到后台
-  const res = myAxios.post('user/update', {
+  const res = await myAxios.post('/user/update', {
     'id': 3,
-    [editUser.value.editKey]:
+    [editUser.value.editKey as string]:
     editUser.value.currentValue,
 
   })
