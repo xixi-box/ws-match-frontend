@@ -46,6 +46,7 @@ const onSubmit = async () => {
   if (res.code === 0 && res.data) {
     router.replace('/');
   } else {
+    alert('登录失败')
   }
 };
 

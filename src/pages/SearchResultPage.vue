@@ -7,7 +7,6 @@ const userList = ref([])
 import myAxios from "../plugins/myAxios.ts";
 
 import qs from "qs";
-import {Toast} from "vant";
 
 const {tags} = route.query
 onMounted(async () => {
@@ -22,7 +21,7 @@ onMounted(async () => {
   }).then(function (response) {
     console.log('/user/search/tags', response);
     console.log('请求成功')
-    return response.data?.data;
+    return response ?.data;
   }).catch(function (error) {
     console.error('/user/search/tags', error);
   })

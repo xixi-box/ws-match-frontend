@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {useRouter} from "vue-router";
 import {onMounted, ref} from "vue";
-import myAxios from "../plugins/myAxios.ts";
+import {getCurrentUser} from "../services/user.ts";
 
 // const user = {
 //   id: 1,
@@ -15,22 +15,17 @@ import myAxios from "../plugins/myAxios.ts";
 //   createTime: new Date,
 // }
 const user = ref();
+
 onMounted(async () => {
-  const res = await myAxios.get('/user/current');
-  if (res.code === 0&&res.data) {
-    user.value = res.data;
-    alert('获取用户信息成功')
-  } else {
-    alert('获取用户信息失败')
-  }
+  user.value= await getCurrentUser();
 })
 
-const router = useRouter()
-const toEdit = (editkey: string, editName: string, currentValue: string) => {
+const router = useRouter();
+const toEdit = (editKey: string, editName: string, currentValue: string) => {
   router.push({
     path: '/user/edit',
     query: {
-      editkey,
+      editKey,
       editName,
       currentValue,
     }
@@ -54,7 +49,6 @@ const toEdit = (editkey: string, editName: string, currentValue: string) => {
     <van-cell title="邮箱" :value="user.email" is-link to="/user/edit" arrow-direction="down"
               @click="toEdit('email','邮箱',user.email)"/>
     <van-cell title="注册时间" :value="user.createTime" arrow-direction="down" value="内容"/>
-
 
   </template>
 

@@ -4,6 +4,7 @@
 import {useRoute, useRouter} from "vue-router";
 import {ref} from "vue";
 import myAxios from "../plugins/myAxios.ts";
+import {getCurrentUser} from "../services/user.ts";
 
 const route = useRoute();
 const router = useRouter()
@@ -12,20 +13,28 @@ const editUser = ref({
   currentValue: route.query.currentValue,
   editName: route.query.editName,
 })
+
 const onSubmit = async () => {
+  const currentUser = await getCurrentUser();
+  if (!currentUser) {
+    alert('用户未登录');
+    return;
+  }
+
   //提交到后台
   const res = await myAxios.post('/user/update', {
-    'id': 3,
+    'id': currentUser.id,
     [editUser.value.editKey as string]:
     editUser.value.currentValue,
 
   })
+
+
   if (res.code === 0 && res.data > 0) {
     router.back()
   } else {
     alert('修改错误')
   }
-
 };
 </script>
 
