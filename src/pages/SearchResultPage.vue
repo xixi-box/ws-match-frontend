@@ -7,6 +7,7 @@ const userList = ref([])
 import myAxios from "../plugins/myAxios.ts";
 
 import qs from "qs";
+import UserCardList from "../components/UserCardList.vue";
 
 const {tags} = route.query
 onMounted(async () => {
@@ -21,7 +22,7 @@ onMounted(async () => {
   }).then(function (response) {
     console.log('/user/search/tags', response);
     console.log('请求成功')
-    return response ?.data;
+    return response?.data;
   }).catch(function (error) {
     console.error('/user/search/tags', error);
   })
@@ -56,21 +57,8 @@ const mockUser = {
 </script>
 
 <template>
-  <van-card
-      v-for="user in userList"
-      :desc="user.profile"
-      :title="user.username"
-      :thumb="user.avatarUrl"
-  >
-    <template #tags>
-      <van-tag plain type="primary" v-for="tag in user.tags" style="margin-right: 8px ;margin-top:8px">{{ tag }}
-      </van-tag>
-    </template>
-    <template #footer>
-      <van-button size="mini">联系我</van-button>
-    </template>
-  </van-card>
-<van-empty v-if="!userList||userList.length<1" description="搜索结果为空"></van-empty>
+  <user-card-list :user-list="userList"></user-card-list>
+  <van-empty v-if="!userList||userList.length<1" description="搜索结果为空"></van-empty>
 </template>
 
 <style scoped>
