@@ -25,6 +25,7 @@ onMounted(async () => {
     return response?.data;
   }).catch(function (error) {
     console.error('/user/search/tags', error);
+    console.log('请求失败');
   })
   console.log("----------------")
   console.log(userListData)
